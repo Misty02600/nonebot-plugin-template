@@ -28,7 +28,7 @@
 
 <details>
 <summary>配置 PyPI Trusted Publisher</summary>
-配置文档: https://docs.pypi.org/trusted-publishers/adding-a-publisher/ 
+配置文档: https://docs.pypi.org/trusted-publishers/adding-a-publisher/
 
  - PyPI Project Name: nonebot-plugin-template
  - Owner: Your GitHub username
@@ -39,28 +39,39 @@
 </details>
 
 <details>
-<summary>使用 bump-my-version 工具更新版本号，并触发 Release 工作流 (推荐)</summary>
+<summary>使用 Commitizen 更新版本号，并触发 Release 工作流 (推荐)</summary>
 
-`bump-my-version` 和 `poethepoet` 在 dev 依赖组中，使用 `uv sync` 安装，或者使用 `uv tool install` 全局安装
+确保已安装 [just](https://github.com/casey/just)，然后执行：
 
-    uv run poe bump patch
+```bash
+just bump
+```
 
-该操作会有以下行为:
-1. 更新 `pyproject.toml` 中 `project.version` 和 `tool.bumpversion.current_version`
-2. 更新 `uv.lock` 中的版本号
-3. 创建一个带 `tag` 的提交, 提交信息可以在 `pyproject.toml` 中的 `[tool.bumpversion]` 中配置
+该操作会：
+1. 根据 conventional commits 自动确定版本号
+2. 更新 `pyproject.toml` 中的版本号和 `CHANGELOG.md`
+3. 更新 `uv.lock` 中的版本号
+4. 创建一个带 `v*` tag 的提交
 
-接下来你只需要推送提交，并推送 `tag` (git push origin --tags) 即可触发 Release 工作流
+> 也可以手动指定版本递增：`uv run cz bump --increment patch/minor/major`
+
+接下来推送提交和 tag：
+
+```bash
+git push origin master --tags
+```
 
 </details>
 
 <details>
 <summary>触发 Release 工作流 (手动)</summary>
 
-更新版本号 
+更新版本号
 
-    uv version --bump patch
-    
+```bash
+uv version --bump patch
+```
+
 possible values: major, minor, patch, stable, alpha, beta, rc, post, dev
 
 提交并推送...
@@ -69,11 +80,15 @@ possible values: major, minor, patch, stable, alpha, beta, rc, post, dev
 
 创建 `tag`:
 
-    git tag v*
+```bash
+git tag v*
+```
 
 推送本地所有 `tag`:
 
-    git push origin --tags
+```bash
+git push origin --tags
+```
 
 </details>
 
@@ -88,22 +103,36 @@ possible values: major, minor, patch, stable, alpha, beta, rc, post, dev
 
 `windows`:
 
-    powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+```powershell
+powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
 `curl`:
 
-    curl -LsSf https://astral.sh/uv/install.sh | sh
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
 `pipx`:
 
-    pipx install uv
-    
+```bash
+pipx install uv
+```
+
 </details>
 
 安装所有依赖(自动创建 `venv` 虚拟环境, `-p` 指定 `python` 版本):
 
-    uv sync --all-groups -p 3.12
+```bash
+uv sync --all-groups -p 3.12
+```
+
 添加其他依赖, 例如 `koishi`(bushi
 
-    uv add koishi
+```bash
+uv add koishi
+```
+
 [uv 文档](https://astral.sh/blog/uv)
 </details>
 
@@ -115,25 +144,38 @@ possible values: major, minor, patch, stable, alpha, beta, rc, post, dev
 
 安装 `pre-commit`
 
-    uv tool install pre-commit
+```bash
+uv tool install pre-commit
+```
 
 或安装 `prek` (推荐)
 
 On `Linux` / `macOS`:
 
-    curl --proto '=https' --tlsv1.2 -LsSf https://github.com/j178/prek/releases/download/v0.2.13/prek-installer.sh | sh
+```bash
+curl --proto '=https' --tlsv1.2 -LsSf https://github.com/j178/prek/releases/download/v0.2.13/prek-installer.sh | sh
+```
+
 On `Windows`:
 
-    powershell -ExecutionPolicy ByPass -c "irm https://github.com/j178/prek/releases/download/v0.2.13/prek-installer.ps1 | iex"
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://github.com/j178/prek/releases/download/v0.2.13/prek-installer.ps1 | iex"
+```
+
 安装钩子
 
-    pre-commit install
+```bash
+pre-commit install
 
-    prek install
+prek install
+```
+
 添加到暂存区
 
-    git add <待提交文件>
+```bash
+git add <待提交文件>
+```
 
-仓库地址: 
+仓库地址:
 - [`prek`](https://github.com/j178/prek)
 </details>
