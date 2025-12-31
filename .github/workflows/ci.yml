@@ -67,7 +67,7 @@ jobs:
           version: latest
 
       - name: Install Dependencies
-        run: uv sync --locked
+        run: uv sync
 
       - name: Run Pytest
         run: uv run pytest --cov=src --cov-report xml --junitxml=./junit.xml -n auto
