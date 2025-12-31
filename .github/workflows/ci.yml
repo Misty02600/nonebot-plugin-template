@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     paths:
       - "src/**"
@@ -27,7 +27,7 @@ jobs:
           version: "latest"
 
       - name: Install Dependencies
-        run: uv sync --locked
+        run: uv sync
 
       - name: Static typing check
         run: uvx basedpyright

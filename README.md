@@ -7,7 +7,7 @@
 [![uv](https://img.shields.io/badge/package%20manager-uv-black?style=flat-square&logo=uv)](https://github.com/astral-sh/uv)
 <br/>
 [![ruff](https://img.shields.io/badge/code%20style-ruff-black?style=flat-square&logo=ruff)](https://github.com/astral-sh/ruff)
-[![pre-commit](https://results.pre-commit.ci/badge/github/fllesser/nonebot-plugin-template/master.svg)](https://results.pre-commit.ci/latest/github/fllesser/nonebot-plugin-template/master)
+[![pre-commit](https://results.pre-commit.ci/badge/github/fllesser/nonebot-plugin-template/main.svg)](https://results.pre-commit.ci/latest/github/fllesser/nonebot-plugin-template/main)
 [![codecov](https://codecov.io/gh/fllesser/nonebot-plugin-template/graph/badge.svg?token=TMR6QZ6C6I)](https://codecov.io/gh/fllesser/nonebot-plugin-template)
 
 </div>
@@ -58,7 +58,7 @@ just bump
 接下来推送提交和 tag：
 
 ```bash
-git push origin master --tags
+git push origin main --tags
 ```
 
 </details>

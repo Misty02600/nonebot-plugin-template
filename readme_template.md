@@ -9,7 +9,7 @@
 [![uv](https://img.shields.io/badge/package%20manager-uv-black?style=flat-square&logo=uv)](https://github.com/astral-sh/uv)
 <br/>
 [![ruff](https://img.shields.io/badge/code%20style-ruff-black?style=flat-square&logo=ruff)](https://github.com/astral-sh/ruff)
-[![pre-commit](https://results.pre-commit.ci/badge/github/{owner}/{plugin-name}/master.svg)](https://results.pre-commit.ci/latest/github/{owner}/{plugin-name}/master)
+[![pre-commit](https://results.pre-commit.ci/badge/github/{owner}/{plugin-name}/main.svg)](https://results.pre-commit.ci/latest/github/{owner}/{plugin-name}/main)
 
 </div>
 
@@ -42,26 +42,26 @@
 <summary>uv</summary>
 
     uv add {plugin-name}
-安装仓库 master 分支
+安装仓库 main 分支
 
-    uv add git+https://github.com/{owner}/{plugin-name}@master
+    uv add git+https://github.com/{owner}/{plugin-name}@main
 </details>
 
 <details>
 <summary>pdm</summary>
 
     pdm add {plugin-name}
-安装仓库 master 分支
+安装仓库 main 分支
 
-    pdm add git+https://github.com/{owner}/{plugin-name}@master
+    pdm add git+https://github.com/{owner}/{plugin-name}@main
 </details>
 <details>
 <summary>poetry</summary>
 
     poetry add {plugin-name}
-安装仓库 master 分支
+安装仓库 main 分支
 
-    poetry add git+https://github.com/{owner}/{plugin-name}@master
+    poetry add git+https://github.com/{owner}/{plugin-name}@main
 </details>
 
 打开 nonebot2 项目根目录下的 `pyproject.toml` 文件, 在 `[tool.nonebot]` 部分追加写入
