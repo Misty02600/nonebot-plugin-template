@@ -17,7 +17,8 @@ body = """
     ### {{ group | striptags | trim | upper_first }}
     {% for commit in commits %}
         - {% if commit.scope %}**{{ commit.scope }}**: {% endif %}\
-            {{ commit.message | upper_first }}\
+            {{ commit.message | upper_first }} \
+            ([{{ commit.id | truncate(length=7, end="") }}](https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}/commit/{{ commit.id }}))\
             {% if commit.github.username %} by @{{ commit.github.username }}{%- endif %}\
             {% if commit.github.pr_number %} in \
               [#{{ commit.github.pr_number }}](https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}/pull/{{ commit.github.pr_number }}) \
@@ -45,30 +46,13 @@ commit_preprocessors = []
 commit_parsers = [
     { message = "^feat", group = "✨ Features" },
     { message = "^fix", group = "🐛 Bug Fixes" },
-    { message = "^doc", group = "📚 Documentation" },
-    { message = "^perf", group = "⚡ Performance" },
-    { message = "^refactor", group = "♻️ Refactor" },
-    { message = "^style", group = "🎨 Styling" },
-    { message = "^test", group = "🧪 Testing" },
-    { message = "^build", group = "📦 Build" },
-    { message = "^ci", group = "👷 CI" },
-    { message = "^chore\\(release\\)", skip = true },
-    { message = "^chore\\(deps.*\\)", skip = true },
-    { message = "^chore\\(pr\\)", skip = true },
-    { message = "^chore\\(pull\\)", skip = true },
-    { message = "^chore|^ci", group = "🔧 Miscellaneous Tasks" },
-    { body = ".*security", group = "🛡️ Security" },
     { message = "^revert", group = "◀️ Revert" },
 ]
-# 保护不匹配的提交
+# 保护不匹配的破坏性提交
 protect_breaking_commits = false
 # 按组过滤提交
-filter_commits = false
+filter_commits = true
 # 标签模式
 topo_order = false
 # 根据时间排序
 sort_commits = "oldest"
-
-[remote.github]
-owner = ""
-repo = ""

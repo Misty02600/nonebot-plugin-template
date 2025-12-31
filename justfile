@@ -15,7 +15,11 @@ bump:
 
 # 生成 changelog
 changelog:
-    uv run cz changelog
+    uv run git-cliff --latest -o CHANGELOG.md
+
+# 生成完整 changelog
+changelog-all:
+    uv run git-cliff -o CHANGELOG.md
 
 # 安装 pre-commit hooks
 hooks:
