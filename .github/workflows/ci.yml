@@ -30,9 +30,13 @@ jobs:
 
       - name: Ruff check
         run: uvx ruff check .
+        env:
+          UV_PYTHON: 3.10
 
       - name: Ruff format check
         run: uvx ruff format --check .
+        env:
+          UV_PYTHON: 3.10
 
   basedpyright:
     name: BasedPyright
@@ -51,9 +55,13 @@ jobs:
 
       - name: Install Dependencies
         run: uv sync
+        env:
+          UV_PYTHON: 3.10
 
       - name: Static typing check
         run: uvx basedpyright
+        env:
+          UV_PYTHON: 3.10
 
   test:
     name: Coverage
@@ -91,9 +99,13 @@ jobs:
 
       - name: Install Dependencies
         run: uv sync
+        env:
+          UV_PYTHON: ${{ matrix.python-version }}
 
       - name: Run Pytest
         run: uv run pytest --cov=src --cov-report xml --junitxml=./junit.xml -n auto
+        env:
+          UV_PYTHON: ${{ matrix.python-version }}
 
       - name: Upload test results to Codecov
         if: ${{ !cancelled() }}
