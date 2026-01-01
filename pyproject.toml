@@ -23,17 +23,17 @@ Repository = "https://github.com/owner/nonebot-plugin-template.git"
 
 [dependency-groups]
 dev = [
+  "basedpyright>=1.16.0",
   "commitizen>=4.1.0",
   "git-cliff>=2.11.0,<3.0.0",
-  "nonebot2[fastapi]>=2.4.2,<3.0.0",
   "prek>=0.2.0",
   "ruff>=0.14.8,<1.0.0",
   { include-group = "test" },
 ]
 test = [
   "nonebot-adapter-onebot>=2.4.6,<3.0.0",
-  "nonebot2[fastapi]>=2.4.2,<3.0.0",
-  "nonebug>=0.3.7,<1.0.0",
+  "nonebot2[fastapi]>=2.4.3,<3.0.0",
+  "nonebug>=0.4.3,<1.0.0",
   "pytest-asyncio>=1.3.0,<1.4.0",
   "pytest-cov>=7.0.0",
   "pytest-xdist>=3.8.0,<4.0.0",
@@ -48,9 +48,7 @@ name = "cz_conventional_commits"
 version = "0.1.0"
 tag_format = "v$version"
 version_files = ["pyproject.toml:^version"]
-update_changelog_on_bump = true
-changelog_file = "CHANGELOG.md"
-major_version_zero = true
+major_version_zero = true                   # 允许 0.x.x 版本号
 
 [tool.coverage.report]
 exclude_lines = [
@@ -67,27 +65,19 @@ plugins = ["nonebot_plugin_template"]
 pythonVersion = "3.10"
 pythonPlatform = "All"
 defineConstant = { PYDANTIC_V2 = true }
-executionEnvironments = [
-  { root = "./tests", extraPaths = [
-    "./src",
-  ] },
-  { root = "./src" },
-]
-typeCheckingMode = "standard"
+extraPaths = ["./src"]
 disableBytesTypePromotions = true
 
 [tool.pytest]
 addopts = [
-  "--import-mode=prepend", # 导入模式
-  "--strict-markers",      # 严格标记模式
-  "--tb=short",            # 简短的错误回溯
-  "-ra",                   # 显示所有测试结果摘要
-  "-s",                    # 显示打印信息
-  "-v",                    # 详细输出
+  "--import-mode=importlib", # 导入模式（import mode）
+  "--strict-markers",        # 严格标记模式（strict markers mode）
+  "--tb=short",              # 简短的错误回溯（short traceback）
+  "-ra",                     # 显示所有测试结果摘要（show all test results summary）
 ]
 pythonpath = ["src"]
-asyncio_mode = "auto"
-asyncio_default_fixture_loop_scope = "session"
+asyncio_mode = "auto" # 自动检测异步测试
+asyncio_default_fixture_loop_scope = "function" # 异步 fixture 的事件循环作用域
 
 [tool.ruff]
 line-length = 88
@@ -97,35 +87,35 @@ line-ending = "lf"
 
 [tool.ruff.lint]
 select = [
-  "F",     # Pyflakes
-  "W",     # pycodestyle warnings
-  "E",     # pycodestyle errors
-  "I",     # isort
-  "UP",    # pyupgrade
-  "ASYNC", # flake8-async
-  "C4",    # flake8-comprehensions
-  "T10",   # flake8-debugger
-  "T20",   # flake8-print
-  "PYI",   # flake8-pyi
-  "PT",    # flake8-pytest-style
-  "Q",     # flake8-quotes
-  "TID",   # flake8-tidy-imports
-  "RUF",   # Ruff-specific rules
+  "F",     # Pyflakes（Pyflakes 基础检查）
+  "W",     # pycodestyle warnings（pycodestyle 警告）
+  "E",     # pycodestyle errors（pycodestyle 错误）
+  "I",     # isort（导入排序）
+  "UP",    # pyupgrade（Python 版本升级语法）
+  "ASYNC", # flake8-async（异步代码检查）
+  "C4",    # flake8-comprehensions（推导式优化）
+  "T10",   # flake8-debugger（调试器检查）
+  "T20",   # flake8-print（print 语句检查）
+  "PYI",   # flake8-pyi（类型存根文件检查）
+  "PT",    # flake8-pytest-style（pytest 风格检查）
+  "Q",     # flake8-quotes（引号风格检查）
+  "TID",   # flake8-tidy-imports（导入整理）
+  "RUF",   # Ruff-specific rules（Ruff 特定规则）
 ]
 ignore = [
-  "E402",   # module-import-not-at-top-of-file
-  "UP037",  # quoted-annotation
-  "RUF001", # ambiguous-unicode-character-string
-  "RUF002", # ambiguous-unicode-character-docstring
-  "RUF003", # ambiguous-unicode-character-comment
-  "W191",   # indentation contains tabs
-  "TID252", # relative-import
+  "E402",   # module-import-not-at-top-of-file（模块导入不在文件顶部）
+  "UP037",  # quoted-annotation（引号类型注解）
+  "RUF001", # ambiguous-unicode-character-string（字符串中的歧义 Unicode 字符）
+  "RUF002", # ambiguous-unicode-character-docstring（文档字符串中的歧义 Unicode 字符）
+  "RUF003", # ambiguous-unicode-character-comment（注释中的歧义 Unicode 字符）
+  "W191",   # indentation contains tabs（缩进包含制表符）
+  "TID252", # relative-import（相对导入）
 ]
 
 [tool.ruff.lint.isort]
-length-sort = true
-known-first-party = ["tests/*"]
-extra-standard-library = ["typing_extensions"]
+length-sort = true                             # 按长度排序导入
+known-first-party = ["tests/*"]                # 第一方包识别
+extra-standard-library = ["typing_extensions"] # 额外的标准库模块
 
 [tool.ruff.lint.pyupgrade]
-keep-runtime-typing = true
+keep-runtime-typing = true # 保留运行时类型

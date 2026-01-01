@@ -10,17 +10,26 @@ test:
 
 # 版本发布（更新版本号、生成 changelog、更新 lock 文件）
 bump:
-    uv run cz bump --changelog
+    uv run cz bump
     uv lock
 
 # 生成 changelog
 changelog:
-    uv run git-cliff --latest -o CHANGELOG.md
-
-# 生成完整 changelog
-changelog-all:
-    uv run git-cliff -o CHANGELOG.md
+    uv run git-cliff --latest
 
 # 安装 pre-commit hooks
 hooks:
     uv run prek install
+
+# 代码检查与格式化
+lint:
+    uv run ruff check . --fix
+    uv run ruff format .
+
+# 类型检查
+check:
+    uv run basedpyright
+
+# 更新 pre-commit hooks
+update:
+    uv run prek autoupdate
