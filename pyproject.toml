@@ -75,7 +75,7 @@ addopts = [
   "--tb=short",              # 简短的错误回溯（short traceback）
   "-ra",                     # 显示所有测试结果摘要（show all test results summary）
 ]
-pythonpath = ["src"]
+pythonpath = ["src", "tests"]  # 确保 tests 目录被识别为包
 asyncio_mode = "auto" # 自动检测异步测试
 asyncio_default_fixture_loop_scope = "function" # 异步 fixture 的事件循环作用域
 

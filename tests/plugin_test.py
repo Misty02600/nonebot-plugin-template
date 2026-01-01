@@ -1,7 +1,7 @@
 import pytest
 from nonebug import App
 
-from fake import fake_group_message_event_v11
+from .fake import fake_group_message_event_v11
 
 
 @pytest.mark.asyncio
