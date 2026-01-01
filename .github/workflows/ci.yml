@@ -13,6 +13,25 @@ on:
       - ".github/workflows/**"
 
 jobs:
+  ruff:
+    name: Ruff
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          python-version: 3.10
+          version: latest
+
+      - name: Ruff check
+        run: uvx ruff check .
+
+      - name: Ruff format check
+        run: uvx ruff format --check .
+
   basedpyright:
     name: BasedPyright
     runs-on: ubuntu-latest
@@ -23,7 +42,7 @@ jobs:
         uses: astral-sh/setup-uv@v7
         with:
           enable-cache: true
-          python-version: 3.12
+          python-version: 3.10
           version: "latest"
 
       - name: Install Dependencies
