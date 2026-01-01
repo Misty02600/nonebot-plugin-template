@@ -1,23 +1,25 @@
 import pytest
-from fake import fake_group_message_event_v11
 from nonebug import App
+
+from .fake import fake_group_message_event_v11
 
 
 @pytest.mark.asyncio
-async def test_pip(app: App):
-    import nonebot
-    from nonebot.adapters.onebot.v11 import Bot, Message
-    from nonebot.adapters.onebot.v11 import Adapter as OnebotV11Adapter
+async def test_plugin_metadata(app: App):
+    """测试插件元数据加载是否正常"""
+    from nonebot_plugin_template import __plugin_meta__
 
-    event = fake_group_message_event_v11(message="pip install nonebot2")
-    try:
-        from nonebot_plugin_template import pip  # type:ignore
-    except ImportError:
-        pytest.skip("nonebot_plugin_template.pip not found")
+    assert __plugin_meta__.name == "名称"
+    assert __plugin_meta__.description == "描述"
+    assert __plugin_meta__.type == "application"
 
-    async with app.test_matcher(pip) as ctx:
-        adapter = nonebot.get_adapter(OnebotV11Adapter)
-        bot = ctx.create_bot(base=Bot, adapter=adapter)
-        ctx.receive_event(bot, event)
-        ctx.should_call_send(event, Message("nonebot2"), result=None, bot=bot)
-        ctx.should_finished()
+
+@pytest.mark.asyncio
+async def test_fake_event():
+    """测试虚拟事件创建"""
+    from nonebot.adapters.onebot.v11 import Message
+
+    event = fake_group_message_event_v11(message=Message("测试消息"))
+    assert event.message_type == "group"
+    assert event.user_id == 12345678
+    assert str(event.message) == "测试消息"
