@@ -16,6 +16,8 @@ jobs:
   ruff:
     name: Ruff
     runs-on: ubuntu-latest
+    env:
+      UV_PYTHON: 3.10
     steps:
       - uses: actions/checkout@v6
 
@@ -35,6 +37,8 @@ jobs:
   basedpyright:
     name: BasedPyright
     runs-on: ubuntu-latest
+    env:
+      UV_PYTHON: 3.10
     steps:
       - uses: actions/checkout@v6
 
