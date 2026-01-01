@@ -1,5 +1,5 @@
 # from nonebot import logger, require
-from nonebot.plugin import PluginMetadata, inherit_supported_adapters
+from nonebot.plugin import PluginMetadata  # , inherit_supported_adapters
 
 # require("nonebot_plugin_uninfo")
 # require("nonebot_plugin_alconna")
@@ -14,9 +14,9 @@ __plugin_meta__ = PluginMetadata(
     type="application",  # library
     homepage="https://github.com/owner/nonebot-plugin-template",
     config=Config,
-    supported_adapters=inherit_supported_adapters(
-        "nonebot_plugin_alconna", "nonebot_plugin_uninfo"
-    ),
-    # supported_adapters={"~onebot.v11"}, # 仅 onebot
+    # supported_adapters=inherit_supported_adapters(
+    #     "nonebot_plugin_alconna", "nonebot_plugin_uninfo"
+    # ),
+    supported_adapters={"~onebot.v11"},
     extra={"author": "owner <your@mail.com>"},
 )
