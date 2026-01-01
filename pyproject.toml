@@ -79,13 +79,13 @@ addopts = [
   "--tb=short",              # 简短的错误回溯（short traceback）
   "-ra",                     # 显示所有测试结果摘要（show all test results summary）
 ]
-pythonpath = ["src", "tests"] # 确保 tests 目录被识别为包
+pythonpath = ["src", "tests"]  # 确保 tests 目录被识别为包
 asyncio_mode = "auto" # 自动检测异步测试
 asyncio_default_fixture_loop_scope = "function" # 异步 fixture 的事件循环作用域
 
 [tool.ruff]
 line-length = 88
-src = ["src", "tests"] # 源代码目录（自动识别其中的模块为本地模块）
+src = ["src", "tests"]  # 源代码目录（自动识别其中的模块为本地模块）
 
 [tool.ruff.format]
 line-ending = "lf"
@@ -96,6 +96,7 @@ select = [
   "W",     # pycodestyle warnings（pycodestyle 警告）
   "E",     # pycodestyle errors（pycodestyle 错误）
   "I",     # isort（导入排序）
+  "B",     # flake8-bugbear (发现潜在 bug)
   "UP",    # pyupgrade（Python 版本升级语法）
   "ASYNC", # flake8-async（异步代码检查）
   "C4",    # flake8-comprehensions（推导式优化）
