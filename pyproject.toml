@@ -81,6 +81,7 @@ asyncio_default_fixture_loop_scope = "function" # 异步 fixture 的事件循环
 
 [tool.ruff]
 line-length = 88
+src = ["src", "tests"]  # 源代码目录（自动识别其中的模块为本地模块）
 
 [tool.ruff.format]
 line-ending = "lf"
@@ -114,7 +115,6 @@ ignore = [
 
 [tool.ruff.lint.isort]
 length-sort = true                             # 按长度排序导入
-known-first-party = ["tests/*"]                # 第一方包识别
 extra-standard-library = ["typing_extensions"] # 额外的标准库模块
 
 [tool.ruff.lint.pyupgrade]
