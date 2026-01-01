@@ -62,11 +62,15 @@ exclude_lines = [
 plugins = ["nonebot_plugin_template"]
 
 [tool.pyright]
+include = ["src", "tests"]
 pythonVersion = "3.10"
 pythonPlatform = "All"
-defineConstant = { PYDANTIC_V2 = true }
-extraPaths = ["./src"]
-disableBytesTypePromotions = true
+typeCheckingMode = "standard"
+
+[[tool.pyright.executionEnvironments]]
+root = "tests"
+reportPrivateUsage = "none"      # 允许测试访问私有属性 (_variable)
+reportUnknownMemberType = "none" # 允许 Mock 对象等动态类型
 
 [tool.pytest]
 addopts = [
@@ -75,13 +79,13 @@ addopts = [
   "--tb=short",              # 简短的错误回溯（short traceback）
   "-ra",                     # 显示所有测试结果摘要（show all test results summary）
 ]
-pythonpath = ["src", "tests"]  # 确保 tests 目录被识别为包
+pythonpath = ["src", "tests"] # 确保 tests 目录被识别为包
 asyncio_mode = "auto" # 自动检测异步测试
 asyncio_default_fixture_loop_scope = "function" # 异步 fixture 的事件循环作用域
 
 [tool.ruff]
 line-length = 88
-src = ["src", "tests"]  # 源代码目录（自动识别其中的模块为本地模块）
+src = ["src", "tests"] # 源代码目录（自动识别其中的模块为本地模块）
 
 [tool.ruff.format]
 line-ending = "lf"
