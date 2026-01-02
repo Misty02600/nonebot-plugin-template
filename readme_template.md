@@ -6,7 +6,7 @@
 [![LICENSE](https://img.shields.io/github/license/{owner}/{plugin-name}.svg)](./LICENSE)
 [![pypi](https://img.shields.io/pypi/v/{plugin-name}.svg)](https://pypi.python.org/pypi/{plugin-name})
 [![python](https://img.shields.io/badge/python-3.10|3.11|3.12|3.13-blue.svg?logo=python&logoColor=white)](https://www.python.org)
-[![Adapters](https://img.shields.io/badge/Adapters-OneBot%20v11%20%7C%20Telegram-blue?style=flat-square)](#supported-adapters)
+[![Adapters](https://img.shields.io/badge/Adapters-OneBot%20v11%7CTelegram-blue?style=flat-square)](#supported-adapters)
 <br/>
 
 [![uv](https://img.shields.io/badge/package%20manager-uv-black?style=flat-square&logo=uv)](https://github.com/astral-sh/uv)
