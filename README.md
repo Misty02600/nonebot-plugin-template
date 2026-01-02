@@ -23,6 +23,33 @@
 2. **⚠️ 重要:** 前往仓库 `Settings` -> `Actions` -> `General` -> 最下方 `Workflow permissions`, 勾选 `Read and write permissions`，然后点击 `Save` 按钮
 3. 在 `Add file` 菜单中选择 `Create new file`, 在新文件名处输入`LICENSE`, 此时在右侧会出现一个 `Choose a license template` 按钮, 点击此按钮选择开源协议模板, 然后在最下方提交新文件到主分支(这会触发一个工作流，生成新的 `README`，并修改 `pyproject.toml` 等文件中的插件名称)
 
+### 🧰 本地开发环境
+
+- 依赖管理：`uv`（自动创建虚拟环境）
+- 任务编排：`just`
+- 代码质量：`ruff`（格式化 + 静态检查）、`basedpyright`（类型检查）
+- 测试：`pytest` + `pytest-xdist`（并行）+ `pytest-cov`
+- 提交规范：`commitizen`、`pre-commit` / `prek`
+- 变更日志：`git-cliff`
+
+#### 安装依赖
+
+```bash
+uv sync --all-groups -p 3.12
+```
+
+#### 常用命令
+
+```bash
+just test      # 单元测试（含覆盖率，自动并行）
+just lint      # 代码检查 + 格式化（ruff check/format）
+just check     # 类型检查（basedpyright）
+just hooks     # 安装 pre-commit / prek 钩子
+just update    # 更新钩子版本（prek autoupdate）
+just changelog # 生成最新 changelog（git-cliff）
+just bump      # 根据 commit 自动升版本并更新锁文件（cz + uv lock）
+```
+
 > [!NOTE]
 > 模板库中自带了一个 Release 工作流, 你可以使用此工作流发布你的插件到 PyPI
 
