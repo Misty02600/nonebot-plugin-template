@@ -26,7 +26,7 @@ jobs:
           version: latest
 
       - name: Ruff check
-        run: uvx ruff check .
+        run: uvx ruff check --output-format=github .
 
       - name: Ruff format check
         run: uvx ruff format --check .
