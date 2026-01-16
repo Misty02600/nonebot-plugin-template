@@ -1,25 +1,25 @@
 <div align="center">
     <a href="https://v2.nonebot.dev/store">
-    <img src="https://raw.githubusercontent.com/fllesser/nonebot-plugin-template/refs/heads/resource/.docs/NoneBotPlugin.svg" width="310" alt="logo"></a>
+    <img src="https://raw.githubusercontent.com/Misty02600/nonebot-plugin-template/refs/heads/resource/.docs/NoneBotPlugin.svg" width="310" alt="logo"></a>
 
 ## ✨ nonebot-plugin-template ✨
 [![python](https://img.shields.io/badge/python-3.10|3.11|3.12|3.13|3.14-blue.svg?logo=python&logoColor=white)](https://www.python.org)
 [![uv](https://img.shields.io/badge/package%20manager-uv-black?logo=uv)](https://github.com/astral-sh/uv)
 <br/>
 [![ruff](https://img.shields.io/badge/code%20style-ruff-black?logo=ruff)](https://github.com/astral-sh/ruff)
-[![pre-commit](https://results.pre-commit.ci/badge/github/fllesser/nonebot-plugin-template/main.svg)](https://results.pre-commit.ci/latest/github/fllesser/nonebot-plugin-template/main)
-[![codecov](https://codecov.io/gh/fllesser/nonebot-plugin-template/graph/badge.svg?token=TMR6QZ6C6I)](https://codecov.io/gh/fllesser/nonebot-plugin-template)
+[![pre-commit](https://results.pre-commit.ci/badge/github/Misty02600/nonebot-plugin-template/main.svg)](https://results.pre-commit.ci/latest/github/Misty02600/nonebot-plugin-template/main)
+[![codecov](https://codecov.io/gh/Misty02600/nonebot-plugin-template/graph/badge.svg?token=TMR6QZ6C6I)](https://codecov.io/gh/Misty02600/nonebot-plugin-template)
 
 </div>
 
 > [!IMPORTANT]
 > **收藏项目** 以便创建插件仓库～⭐️
 
-<img width="100%" src="https://starify.komoridevs.icu/api/starify?owner=fllesser&repo=nonebot-plugin-template" alt="starify" />
+<img width="100%" src="https://starify.komoridevs.icu/api/starify?owner=Misty02600&repo=nonebot-plugin-template" alt="starify" />
 
 ### 🎉 快速开始
 
-1. 点击 [创建仓库](https://github.com/new?template_owner=fllesser&template_name=nonebot-plugin-template&owner=%40me&name=nonebot-plugin-&visibility=public)
+1. 点击 [创建仓库](https://github.com/new?template_owner=Misty02600&template_name=nonebot-plugin-template&owner=%40me&name=nonebot-plugin-&visibility=public)
 2. **⚠️ 重要:** 前往仓库 `Settings` -> `Actions` -> `General` -> 最下方 `Workflow permissions`, 勾选 `Read and write permissions`，然后点击 `Save` 按钮
 3. 在 `Add file` 菜单中选择 `Create new file`, 在新文件名处输入`LICENSE`, 此时在右侧会出现一个 `Choose a license template` 按钮, 点击此按钮选择开源协议模板, 然后在最下方提交新文件到主分支(这会触发一个工作流，生成新的 `README`，并修改 `pyproject.toml` 等文件中的插件名称)
 
