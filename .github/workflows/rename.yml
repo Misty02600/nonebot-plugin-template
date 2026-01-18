@@ -5,13 +5,15 @@ on:
   push:
     paths:
       - 'LICENSE'      # 当 LICENSE 文件发生变更时触发
+      - '!.github/**'
 
 jobs:
   init:
+    if: github.ref_type != 'tag'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0  # 获取完整历史以确保可以正确提交
           token: ${{ secrets.GITHUB_TOKEN }}  # 使用具有写入权限的token
@@ -30,13 +32,13 @@ jobs:
           echo "Repository owner: $REPO_OWNER"
           echo "Repository name: $REPO_NAME"
           echo "Repository underscore name: $UNDERSCORE_REPO_NAME"
-      
+
       - name: Update README.md
         run: |
           # 替换 README.md 中的内容
           rm -f README.md
-          sed -i.bak "s/owner/${REPO_OWNER}/g" readme_template.md
-          sed -i.bak "s/nonebot-plugin-template/${REPO_NAME}/g" readme_template.md
+          sed -i.bak "s/{owner}/${REPO_OWNER}/g" readme_template.md
+          sed -i.bak "s/{plugin-name}/${REPO_NAME}/g" readme_template.md
           sed -i.bak "s/nonebot_plugin_template/${UNDERSCORE_REPO_NAME}/g" readme_template.md
           mv readme_template.md README.md
           rm -f README.md.bak
@@ -53,17 +55,17 @@ jobs:
       - name: Rename plugin metadata
         run : |
           # 修改 nonebot_plugin_template/__init__.py 中的插件元数据 中的 homepage
-          sed -i.bak "s/owner/${REPO_OWNER}/g" nonebot_plugin_template/__init__.py
-          sed -i.bak "s/nonebot-plugin-template/${REPO_NAME}/g" nonebot_plugin_template/__init__.py
-          rm -f nonebot_plugin_template/__init__.py.bak
+          sed -i.bak "s/owner/${REPO_OWNER}/g" src/nonebot_plugin_template/__init__.py
+          sed -i.bak "s/nonebot-plugin-template/${REPO_NAME}/g" src/nonebot_plugin_template/__init__.py
+          rm -f src/nonebot_plugin_template/__init__.py.bak
 
       - name: Rename plugin folder
         run: |
-          if [ -d "nonebot_plugin_template" ]; then
-            mv nonebot_plugin_template "${UNDERSCORE_REPO_NAME}"
+          if [ -d "src/nonebot_plugin_template" ]; then
+            mv src/nonebot_plugin_template "src/${UNDERSCORE_REPO_NAME}"
             echo "Successfully renamed plugin folder to ${UNDERSCORE_REPO_NAME}"
           else
-            echo "Directory nonebot_plugin_template not found."
+            echo "Directory src/nonebot_plugin_template not found."
             exit 1
           fi
 
