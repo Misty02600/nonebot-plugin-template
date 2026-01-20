@@ -27,7 +27,7 @@ dev = [
   "commitizen>=4.1.0",
   "git-cliff>=2.11.0,<3.0.0",
   "prek>=0.2.0",
-  "ruff>=0.14.8,<1.0.0",
+  "ruff>=0.14.13,<1.0.0",
   { include-group = "test" },
 ]
 test = [

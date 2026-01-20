@@ -7,10 +7,6 @@
 [![python](https://img.shields.io/badge/python-3.10|3.11|3.12|3.13|3.14-blue.svg?logo=python&logoColor=white)](https://www.python.org)
 [![uv](https://img.shields.io/badge/package%20manager-uv-black?logo=uv)](https://github.com/astral-sh/uv)
 [![ruff](https://img.shields.io/badge/code%20style-ruff-black?logo=ruff)](https://github.com/astral-sh/ruff)
-[![pre-commit](https://results.pre-commit.ci/badge/github/Misty02600/nonebot-plugin-template/main.svg)](https://results.pre-commit.ci/latest/github/Misty02600/nonebot-plugin-template/main)
-[![codecov](https://codecov.io/gh/Misty02600/nonebot-plugin-template/graph/badge.svg?token=TMR6QZ6C6I)](https://codecov.io/gh/Misty02600/nonebot-plugin-template)
-
-</div>
 
 从模板新建仓库，先到 Settings -> Actions -> General 打开 Workflow permissions 的 Read and write，再创建 LICENSE（会触发初始化工作流）。
 
@@ -54,7 +50,7 @@ just hooks
 | **代码检查/格式化** | [Ruff](https://github.com/astral-sh/ruff)                    | Lint + Format 一站式检查       | `pyproject.toml [tool.ruff]`       |
 | **类型检查**        | [BasedPyright](https://github.com/DetachHead/basedpyright)   | 严格静态类型检查               | `pyproject.toml [tool.pyright]`    |
 | **测试**            | [pytest](https://pytest.org/)                                | 单元测试框架                   | `pyproject.toml [tool.pytest]`     |
-| **预提交钩子**      | [prek](https://github.com/j178/prek) / pre-commit            | Git 钩子管理                   | `.pre-commit-config.yaml`          |
+| **预提交钩子**      | [prek](https://github.com/j178/prek)                         | Git 钩子管理                   | `.pre-commit-config.yaml`          |
 | **提交规范**        | [commitizen](https://github.com/commitizen-tools/commitizen) | 约定式提交校验与版本管理       | `pyproject.toml [tool.commitizen]` |
 | **变更日志**        | [git-cliff](https://github.com/orhun/git-cliff)              | 自动生成 CHANGELOG             | `cliff.toml`                       |
 
@@ -91,10 +87,14 @@ just bump      # 版本升级（cz bump + uv lock，生成 tag）
 
 ### 钩子运行器：prek
 
-本项目推荐使用 **[prek](https://github.com/j178/prek)** 作为预提交钩子运行器。prek 是 pre-commit 的高性能替代品，具有以下优势：
+本项目**必须使用 [prek](https://github.com/j178/prek)** 作为预提交钩子运行器，**不能使用 pre-commit**。
+
+> ⚠️ **注意**：配置文件使用了 `repo: builtin` 语法，这是 prek 特有的功能，pre-commit 不支持。
+
+prek 是 pre-commit 的高性能替代品，具有以下优势：
 
 - ⚡ **更快的执行速度**：基于 Python 包缓存，避免重复创建虚拟环境
-- 🔄 **完全兼容**：与 pre-commit 配置文件 100% 兼容
+- 🔧 **内置常用钩子**：通过 `repo: builtin` 直接使用，无需指定远程仓库
 - 📦 **轻量级**：无需全局安装，通过 `uv run prek` 直接使用
 
 #### 安装 prek
@@ -142,7 +142,7 @@ default_install_hook_types: [pre-commit, commit-msg]
 
 ### 已配置的钩子清单
 
-#### 1. builtin 内置钩子
+#### 1. builtin 内置钩子（prek 特有）
 
 
 | 钩子 ID                   | 作用                 | 触发阶段   |
@@ -152,16 +152,7 @@ default_install_hook_types: [pre-commit, commit-msg]
 | `check-yaml`              | 检查 YAML 文件语法   | pre-commit |
 | `check-added-large-files` | 阻止提交大文件       | pre-commit |
 
-#### 2. ruff-rev-sync（`fllesser/ruff-rev-sync-pre-commit@v1.0.0`）
-
-
-| 钩子 ID         | 作用                                                     | 触发阶段   |
-| --------------- | -------------------------------------------------------- | ---------- |
-| `ruff-rev-sync` | 自动同步 pyproject.toml 中的 ruff 版本到 pre-commit 配置 | pre-commit |
-
-> 确保本地开发与 CI 环境使用相同版本的 Ruff，避免版本差异导致的检查结果不一致。
-
-#### 3. Ruff（`astral-sh/ruff-pre-commit@v0.14.8`）
+#### 2. Ruff（`astral-sh/ruff-pre-commit@v0.14.13`）
 
 
 | 钩子 ID       | 作用                 | 参数                | 触发阶段   |
@@ -169,7 +160,7 @@ default_install_hook_types: [pre-commit, commit-msg]
 | `ruff-check`  | 代码静态分析（lint） | `--fix`（自动修复） | pre-commit |
 | `ruff-format` | 代码格式化           | -                   | pre-commit |
 
-#### 4. Commitizen（`commitizen-tools/commitizen@v4.4.1`）
+#### 3. Commitizen（`commitizen-tools/commitizen@v4.12.0`）
 
 
 | 钩子 ID      | 作用                                                                                  | 触发阶段   |
@@ -189,9 +180,8 @@ git commit -m "feat: ..."
 │  2. end-of-file-fixer    → 修复文件末尾换行              │
 │  3. check-yaml           → 检查 YAML 语法               │
 │  4. check-added-large-files → 检查大文件                │
-│  5. ruff-rev-sync        → 同步 ruff 版本               │
-│  6. ruff-check --fix     → Lint 并自动修复              │
-│  7. ruff-format          → 格式化代码                   │
+│  5. ruff-check --fix     → Lint 并自动修复              │
+│  6. ruff-format          → 格式化代码                   │
 └─────────────────────────────────────────────────────────┘
        ↓ (通过)
 ┌─────────────────────────────────────────────────────────┐
@@ -204,19 +194,6 @@ git commit -m "feat: ..."
 └─────────────────────────────────────────────────────────┘
        ↓ (通过)
      提交成功
-```
-
-### pre-commit.ci 集成
-
-配置文件中的 `ci:` 部分用于 [pre-commit.ci](https://pre-commit.ci) 云服务：
-
-```yaml
-ci:
-  autofix_commit_msg: ":rotating_light: auto fix by pre-commit hooks"
-  autofix_prs: true           # PR 中自动修复可自动修复的问题
-  autoupdate_branch: main     # 自动更新目标分支
-  autoupdate_schedule: monthly # 每月自动更新钩子版本
-  autoupdate_commit_msg: ":arrow_up: auto update by pre-commit hooks"
 ```
 
 ---
@@ -417,11 +394,11 @@ uv run cz bump --increment major   # 0.1.0 → 1.0.0
 #### 提交分组规则
 
 
-| 提交前缀 | 分组标题    |
-| -------- | ----------- |
-| `feat`   | ✨ Features  |
-| `fix`    | 🐛 Bug Fixes |
-| `revert` | ◀️ Revert    |
+| 提交前缀 | 分组标题   |
+| -------- | ---------- |
+| `feat`   | ✨ Features |
+| `fix`    | 🐛 Fixes    |
+| `revert` | ◀️ Revert   |
 
 #### 使用方式
 
@@ -564,7 +541,7 @@ dev = [
   "commitizen>=4.1.0",       # 提交规范
   "git-cliff>=2.11.0",       # 变更日志
   "prek>=0.2.0",             # 预提交钩子
-  "ruff>=0.14.8",            # Lint + Format
+  "ruff>=0.14.13,<1.0.0",    # Lint + Format
   { include-group = "test" },
 ]
 test = [
