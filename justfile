@@ -32,4 +32,4 @@ check:
 
 # 更新 pre-commit hooks
 update:
-    uv run prek autoupdate
+    uv run prek auto-update

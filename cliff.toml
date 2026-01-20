@@ -8,23 +8,19 @@ header = """
 """
 # 提交信息模板
 body = """
-{% if version %}\
-    ## [{{ version | trim_start_matches(pat="v") }}] - {{ timestamp | date(format="%Y-%m-%d") }}
-{% else %}\
-    ## [Unreleased]
-{% endif %}\
-{% for group, commits in commits | group_by(attribute="group") %}
-    ### {{ group | striptags | trim | upper_first }}
-    {% for commit in commits %}
-        - {% if commit.scope %}**{{ commit.scope }}**: {% endif %}\
-            {{ commit.message | upper_first }} \
-            ([{{ commit.id | truncate(length=7, end="") }}](https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}/commit/{{ commit.id }}))\
-            {% if commit.github.username %} by @{{ commit.github.username }}{%- endif %}\
-            {% if commit.github.pr_number %} in \
-              [#{{ commit.github.pr_number }}](https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}/pull/{{ commit.github.pr_number }}) \
-            {%- endif %}\
-    {% endfor %}
-{% endfor %}\n
+{% if version -%}
+## [{{ version | trim_start_matches(pat="v") }}] - {{ timestamp | date(format="%Y-%m-%d") }}
+{% else -%}
+## [Unreleased]
+{% endif %}
+
+{% for group, commits in commits | group_by(attribute="group") -%}
+### {{ group | striptags | trim | upper_first }}
+{% for commit in commits -%}
+- {% if commit.scope %}**{{ commit.scope }}**: {% endif %}{{ commit.message | split(pat="\n") | first | trim | upper_first }} ([{{ commit.id | truncate(length=7, end="") }}](https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}/commit/{{ commit.id }})){% if commit.remote.username %} by @{{ commit.remote.username }}{% endif %}{% if commit.remote.pr_number %} in [#{{ commit.remote.pr_number }}](https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}/pull/{{ commit.remote.pr_number }}){% endif %}
+{% endfor %}
+
+{% endfor -%}
 """
 # 移除尾部空白
 trim = true
@@ -34,25 +30,12 @@ footer = ""
 postprocessors = []
 
 [git]
-# 解析常规提交信息
-conventional_commits = true
-# 按组过滤提交
-filter_unconventional = true
-# 是否处理第一次提交之前的内容
-split_commits = false
-# 正则表达式用于预处理提交
-commit_preprocessors = []
-# 提交解析器
+# 提交分组
 commit_parsers = [
     { message = "^feat", group = "✨ Features" },
-    { message = "^fix", group = "🐛 Bug Fixes" },
-    { message = "^revert", group = "◀️ Revert" },
+    { message = "^fix", group = "🐛 Fixes" },
 ]
 # 保护不匹配的破坏性提交
-protect_breaking_commits = false
-# 按组过滤提交
+protect_breaking_commits = true
+# 只保留能被 commit_parsers 匹配到的提交
 filter_commits = true
-# 标签模式
-topo_order = false
-# 根据时间排序
-sort_commits = "oldest"
