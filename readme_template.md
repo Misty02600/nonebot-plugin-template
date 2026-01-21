@@ -1,6 +1,6 @@
 <div align="center">
     <a href="https://v2.nonebot.dev/store">
-    <img src="https://raw.githubusercontent.com/Misty02600/nonebot-plugin-template/refs/heads/resource/.docs/NoneBotPlugin.svg" width="310" alt="logo"></a>
+    <img src="https://github.com/Misty02600/nonebot-plugin-template/releases/download/assets/NoneBotPlugin.svg" width="310" alt="logo"></a>
 
 ## ✨ {plugin-name} ✨
 [![LICENSE](https://img.shields.io/github/license/{owner}/{plugin-name}.svg)](./LICENSE)

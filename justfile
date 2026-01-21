@@ -33,3 +33,12 @@ check:
 # 更新 pre-commit hooks
 update:
     uv run prek auto-update
+
+# 创建用于向上游提交 PR 的临时分支
+# 用法: just pr <分支名> <提交信息>
+# 示例: just pr my-feature "feat: add new feature"
+pr branch msg:
+    git fetch upstream
+    git switch -c pr/{{branch}} upstream/main
+    git restore --source dev --staged --worktree -- . ':(exclude)tools/' ':(exclude)dev_tools/'
+    git commit -m "{{msg}}"
