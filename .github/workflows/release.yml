@@ -44,7 +44,6 @@ jobs:
           config: cliff.toml
           args: --latest --strip header
         env:
-          OUTPUT: CHANGELOG.md
           GITHUB_REPO: ${{ github.repository }}
 
       - name: Build

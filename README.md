@@ -506,6 +506,21 @@ uv run git-cliff --latest   # 仅最新版本
 
 **作用**：从上游模板仓库 `Misty02600/nonebot-plugin-template` 同步更新，以 squash 方式合并，保持历史整洁。
 
+### 分支策略说明
+
+如果您采用 `main` + `dev` 分支策略进行开发：
+
+```
+dev (开发分支) ──PR──▶ main (稳定分支) ──tag──▶ release (发布)
+                              ▲
+                              │
+                    template-sync PR (模板同步)
+```
+
+- **release.yml**：仅由 tag 触发，不会修改任何分支
+- **template-sync.yml**：仅向 `main` 分支创建 PR
+- **dev 分支完全独立**，不受上述工作流影响，是您的开发空间
+
 ---
 
 ## 项目配置参考

@@ -5,7 +5,6 @@ on:
   push:
     paths:
       - 'LICENSE'      # 当 LICENSE 文件发生变更时触发
-      - '!.github/**'
 
 jobs:
   init:
@@ -79,6 +78,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # 删除初始化工作流（一次性使用）
+          rm -f .github/workflows/initialize.yml
+
           git add .
-          git commit -m "🎉 Initialize repository with correct naming"
+          git commit -m "🎉 Initialize repository"
           git push
