@@ -8,7 +8,7 @@ default:
 test:
     uv run pytest --cov=src --cov-report xml --junitxml=./junit.xml -n auto
 
-# 版本发布（更新版本号、生成 changelog、更新 lock 文件）
+# 版本发布（更新版本号、更新 lock 文件）
 bump:
     uv run cz bump
     uv lock
@@ -40,5 +40,5 @@ update:
 pr branch msg:
     git fetch upstream
     git switch -c pr/{{branch}} upstream/main
-    git restore --source dev --staged --worktree -- . ':(exclude)tools/' ':(exclude)dev_tools/'
+    git restore --source dev --staged --worktree -- . ':(exclude)memorybank/' ':(exclude)dev_tools/'
     git commit -m "{{msg}}"
