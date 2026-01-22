@@ -1,11 +1,11 @@
 <div align="center">
     <a href="https://v2.nonebot.dev/store">
-    <img src="https://github.com/Misty02600/nonebot-plugin-template/releases/download/assets/NoneBotPlugin.svg" width="310" alt="logo"></a>
+    <img src="https://github.com/Misty02600/nonebot-plugin-template/releases/download/assets/NoneBotPlugin.png" width="310" alt="logo"></a>
 
 ## ✨ {plugin-name} ✨
 [![LICENSE](https://img.shields.io/github/license/{owner}/{plugin-name}.svg)](./LICENSE)
 [![pypi](https://img.shields.io/pypi/v/{plugin-name}.svg)](https://pypi.python.org/pypi/{plugin-name})
-[![python](https://img.shields.io/badge/python-3.10|3.11|3.12|3.13-blue.svg?logo=python&logoColor=white)](https://www.python.org)
+[![python](https://img.shields.io/badge/python-3.10|3.11|3.12|3.13|3.14-blue.svg?logo=python&logoColor=white)](https://www.python.org)
 [![Adapters](https://img.shields.io/badge/Adapters-OneBot%20v11%7CTelegram-blue)](#supported-adapters)
 <br/>
 

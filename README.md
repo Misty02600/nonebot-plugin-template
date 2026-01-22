@@ -1,12 +1,14 @@
 <div align="center">
     <a href="https://v2.nonebot.dev/store">
-    <img src="https://github.com/Misty02600/nonebot-plugin-template/releases/download/assets/NoneBotPlugin.svg" width="310" alt="logo"></a>
+    <img src="https://github.com/Misty02600/nonebot-plugin-template/releases/download/assets/NoneBotPlugin.png" width="310" alt="logo"></a>
 
 ## ✨ nonebot-plugin-template ✨
 
 [![python](https://img.shields.io/badge/python-3.10|3.11|3.12|3.13|3.14-blue.svg?logo=python&logoColor=white)](https://www.python.org)
 [![uv](https://img.shields.io/badge/package%20manager-uv-black?logo=uv)](https://github.com/astral-sh/uv)
 [![ruff](https://img.shields.io/badge/code%20style-ruff-black?logo=ruff)](https://github.com/astral-sh/ruff)
+
+</div>
 
 从模板新建仓库，先到 Settings -> Actions -> General 打开 Workflow permissions 的 Read and write，再创建 LICENSE（会触发初始化工作流）。
 
