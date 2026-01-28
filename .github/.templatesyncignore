@@ -8,3 +8,4 @@
 
 # 其余全部不同步
 *
+.github/workflows/initialize.yml
