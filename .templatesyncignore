@@ -1,0 +1,3 @@
+# 排除工作流文件的同步
+# GitHub 对 workflow 文件有特殊保护，默认 GITHUB_TOKEN 无法修改
+.github/workflows/
