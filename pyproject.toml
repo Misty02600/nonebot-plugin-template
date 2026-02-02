@@ -3,7 +3,7 @@ name = "nonebot-plugin-template"
 version = "0.1.0"
 description = "插件描述"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 authors = [{ name = "owner", email = "owner@gmail.com" }]
 dependencies = [
   # "httpx>=0.27.0,<1.0.0",
@@ -51,6 +51,7 @@ build-backend = "uv_build"
 
 [tool.commitizen]
 name = "cz_conventional_commits"
+version = "0.1.0"                           # 当前版本
 tag_format = "v$version"
 version_files = ["pyproject.toml:^version"]
 major_version_zero = true                   # 允许 0.x.x 版本号
@@ -65,7 +66,7 @@ exclude_lines = [
 
 [tool.pyright]
 include = ["src", "tests"] # 要检查的目录
-pythonVersion = "3.10"     # 目标 Python 版本（影响可用的类型特性）
+pythonVersion = "3.11"     # 目标 Python 版本（影响可用的类型特性）
 pythonPlatform = "All"     # 目标平台：All | Linux | Windows | Darwin
 # typeCheckingMode 类型检查严格程度，可选值：
 #   - "off"：      关闭类型检查
@@ -88,6 +89,7 @@ addopts = [
   "--tb=short",              # 简短的错误回溯（减少输出噪音）
   "-ra",                     # 显示所有非通过测试的摘要（a=all except passed）
 ]
+testpaths = ["tests"] # 仅运行 tests 目录下的测试
 pythonpath = ["src", "tests"] # 添加到 Python 路径，确保模块可导入
 asyncio_mode = "auto" # 自动检测异步测试函数，无需手动标记 @pytest.mark.asyncio
 asyncio_default_fixture_loop_scope = "function" # 每个测试函数使用独立的事件循环

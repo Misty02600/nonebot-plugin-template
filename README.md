@@ -4,7 +4,7 @@
 
 ## ✨ nonebot-plugin-template ✨
 
-[![python](https://img.shields.io/badge/python-3.10|3.11|3.12|3.13|3.14-blue.svg?logo=python&logoColor=white)](https://www.python.org)
+[![python](https://img.shields.io/badge/python-3.11+-blue.svg?logo=python&logoColor=white)](https://www.python.org)
 [![uv](https://img.shields.io/badge/package%20manager-uv-black?logo=uv)](https://github.com/astral-sh/uv)
 [![ruff](https://img.shields.io/badge/code%20style-ruff-black?logo=ruff)](https://github.com/astral-sh/ruff)
 
@@ -262,7 +262,7 @@ uv run ruff format .
 ```toml
 [tool.pyright]
 include = ["src", "tests"]
-pythonVersion = "3.10"
+pythonVersion = "3.11"
 pythonPlatform = "All"
 typeCheckingMode = "standard"
 ```
@@ -428,9 +428,9 @@ uv run git-cliff --latest   # 仅最新版本
 
 | Job              | 作用                 | Python 版本         |
 | ---------------- | -------------------- | ------------------- |
-| **Ruff**         | 代码检查与格式化验证 | 3.10                |
-| **BasedPyright** | 静态类型检查         | 3.10                |
-| **Coverage**     | 测试与覆盖率上报     | 3.10 - 3.14（矩阵） |
+| **Ruff**         | 代码检查与格式化验证 | 3.11                |
+| **BasedPyright** | 静态类型检查         | 3.11                |
+| **Coverage**     | 测试与覆盖率上报     | 3.11 - 3.14（矩阵） |
 
 #### Ruff Job
 
