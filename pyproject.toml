@@ -39,9 +39,11 @@ test = [
   "pytest-xdist>=3.8.0,<4.0.0",
 ]
 
-[tool.nonebot]
-plugins = ["nonebot_plugin_template"]
-adapters = [
+[tool.nonebot.plugins]
+nonebot-plugin-template = ["nonebot_plugin_template"]
+
+[tool.nonebot.adapters]
+nonebot-adapter-onebot = [
   { name = "OneBot V11", module_name = "nonebot.adapters.onebot.v11" },
 ]
 
