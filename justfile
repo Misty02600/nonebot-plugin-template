@@ -10,7 +10,7 @@ run:
 
 # 运行测试
 test:
-    uv run pytest
+    uv run pytest -n auto
 
 # 版本发布（更新版本号、更新 lock 文件）
 bump:
@@ -20,10 +20,6 @@ bump:
 # 生成 changelog
 changelog:
     uv run git-cliff --latest
-
-# 安装 pre-commit hooks
-hooks:
-    uv run prek install
 
 # 代码检查
 lint:
@@ -36,6 +32,10 @@ format:
 # 类型检查
 check:
     uv run basedpyright
+
+# 安装 pre-commit hooks
+hooks:
+    uv run prek install
 
 # 更新 pre-commit hooks
 update:
