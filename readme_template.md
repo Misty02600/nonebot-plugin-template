@@ -88,6 +88,8 @@
 
 ## ⚙️ 配置
 
+插件使用[nonebot_plugin_localstore](https://github.com/nonebot/plugin-localstore)储存数据和缓存。
+
 在 nonebot2 项目的`.env`文件中添加下表中的必填配置
 
 | 配置项  | 必填  | 默认值 |   说明   |

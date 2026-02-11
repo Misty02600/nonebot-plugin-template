@@ -84,7 +84,7 @@ root = "tests"
 reportPrivateUsage = "none"      # 允许测试访问私有属性 (_variable)
 reportUnknownMemberType = "none" # 允许 Mock 对象等动态类型
 
-[tool.pytest]
+[tool.pytest.ini_options]
 addopts = [
   "--import-mode=importlib", # 使用 importlib 导入模式（推荐，避免 sys.path 污染）
   "--strict-markers",        # 严格标记模式（未注册的 marker 会报错）
@@ -94,7 +94,7 @@ addopts = [
 testpaths = ["tests"] # 仅运行 tests 目录下的测试
 pythonpath = ["src", "tests"] # 添加到 Python 路径，确保模块可导入
 asyncio_mode = "auto" # 自动检测异步测试函数，无需手动标记 @pytest.mark.asyncio
-asyncio_default_fixture_loop_scope = "function" # 每个测试函数使用独立的事件循环
+asyncio_default_fixture_loop_scope = "session" # 每个测试函数使用独立的事件循环
 
 [tool.ruff]
 line-length = 88       # 每行最大字符数（与 Black 保持一致）
