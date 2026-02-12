@@ -6,7 +6,7 @@ default:
 
 # 运行   nonebot
 run:
-    uv run nbr run --reload
+    uv run nb run --reload
 
 # 运行测试
 test:
@@ -16,6 +16,7 @@ test:
 bump:
     uv run cz bump
     uv lock
+    git push --tags
 
 # 生成 changelog
 changelog:

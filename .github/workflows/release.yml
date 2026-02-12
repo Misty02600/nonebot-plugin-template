@@ -55,7 +55,8 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          name: ${{ github.event.repository.name }} ${{ steps.version.outputs.TAG_NAME }}
+          # name: ${{ github.event.repository.name }} ${{ steps.version.outputs.TAG_NAME }}
+          name: ${{ steps.version.outputs.TAG_NAME }}
           body: ${{ steps.changelog.outputs.content }}
           files: |
             dist/*.tar.gz

@@ -6,6 +6,9 @@ on:
     paths:
       - 'LICENSE'      # 当 LICENSE 文件发生变更时触发
 
+permissions:
+  contents: write
+
 jobs:
   init:
     if: github.ref_type != 'tag'
