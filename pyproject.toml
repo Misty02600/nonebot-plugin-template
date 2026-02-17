@@ -23,14 +23,14 @@ Repository = "https://github.com/owner/nonebot-plugin-template.git"
 
 [dependency-groups]
 dev = [
-  "basedpyright>=1.16.0",
   "commitizen>=4.1.0",
   "git-cliff>=2.11.0,<3.0.0",
   "prek>=0.2.0",
-  "ruff>=0.14.13,<1.0.0",
   { include-group = "test" },
 ]
 test = [
+  "basedpyright>=1.16.0",
+  "ruff>=0.14.13,<1.0.0",
   "nonebot-adapter-onebot>=2.4.6,<3.0.0",
   "nonebot2[fastapi]>=2.4.4,<3.0.0",
   "nonebug>=0.4.3,<1.0.0",
@@ -97,8 +97,8 @@ asyncio_mode = "auto" # 自动检测异步测试函数，无需手动标记 @pyt
 asyncio_default_fixture_loop_scope = "session" # 每个测试函数使用独立的事件循环
 
 [tool.ruff]
-line-length = 88       # 每行最大字符数（与 Black 保持一致）
-src = ["src", "tests"] # 源代码目录（用于判断导入是本地模块还是第三方模块）
+line-length = 88             # 每行最大字符数（与 Black 保持一致）
+src = ["src", "tests"]       # 源代码目录（用于判断导入是本地模块还是第三方模块）
 extend-exclude = ["scripts"] # 脚本目录不做 lint 检查
 
 [tool.ruff.format]

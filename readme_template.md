@@ -4,7 +4,7 @@
 
 ## ✨ {plugin-name} ✨
 [![LICENSE](https://img.shields.io/github/license/{owner}/{plugin-name}.svg)](./LICENSE)
-[![python](https://img.shields.io/badge/python-3.10+-blue.svg?logo=python&logoColor=white)](https://www.python.org)
+[![python](https://img.shields.io/badge/python-3.11+-blue.svg?logo=python&logoColor=white)](https://www.python.org)
 [![Adapters](https://img.shields.io/badge/Adapters-OneBot%20v11-blue)](#supported-adapters)
 <br/>
 
