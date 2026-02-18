@@ -14,9 +14,7 @@ __plugin_meta__ = PluginMetadata(
     type="application",  # application: 功能性插件 | library: 库插件
     homepage="https://github.com/owner/nonebot-plugin-template",
     config=Config,
-    # supported_adapters=inherit_supported_adapters(
-    #     "nonebot_plugin_alconna", "nonebot_plugin_uninfo"
-    # ),
+    # supported_adapters=inherit_supported_adapters("nonebot_plugin_alconna"),
     supported_adapters={"~onebot.v11"},
     extra={"author": "owner <your@mail.com>"},
 )
