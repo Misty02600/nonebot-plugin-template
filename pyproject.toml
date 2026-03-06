@@ -66,9 +66,9 @@ exclude_lines = [
 ]
 
 [tool.pyright]
-include = ["src", "tests/units"] # 要检查的目录
-pythonVersion = "3.11"           # 目标 Python 版本（影响可用的类型特性）
-pythonPlatform = "All"           # 目标平台：All | Linux | Windows | Darwin
+include = ["src", "tests"] # 要检查的目录
+pythonVersion = "3.11"     # 目标 Python 版本（影响可用的类型特性）
+pythonPlatform = "All"     # 目标平台：All | Linux | Windows | Darwin
 # typeCheckingMode 类型检查严格程度，可选值：
 #   - "off"：      关闭类型检查
 #   - "basic"：    基础检查（仅报告明确的类型错误）
@@ -79,7 +79,7 @@ typeCheckingMode = "standard"
 
 # 测试目录的特殊配置（放宽部分规则以适应测试场景）
 [[tool.pyright.executionEnvironments]]
-root = "tests/units"
+root = "tests"
 reportPrivateUsage = "none"      # 允许测试访问私有属性 (_variable)
 reportUnknownMemberType = "none" # 允许 Mock 对象等动态类型
 
@@ -96,10 +96,10 @@ asyncio_mode = "auto" # 自动检测异步测试函数，无需手动标记 @pyt
 asyncio_default_fixture_loop_scope = "session" # 每个测试函数使用独立的事件循环
 
 [tool.ruff]
-line-length = 88                       # 每行最大字符数（与 Black 保持一致）
-src = ["src", "tests/units"]           # 源代码目录（用于判断导入是本地模块还是第三方模块）
-include = ["src/**", "tests/units/**"] # 仅检查 src 和 tests/units 目录
-extend-exclude = ["scripts"]           # 脚本目录不做 lint 检查
+line-length = 88                 # 每行最大字符数（与 Black 保持一致）
+src = ["src", "tests"]           # 源代码目录（用于判断导入是本地模块还是第三方模块）
+include = ["src/**", "tests/**"] # 仅检查 src 和 tests 目录
+extend-exclude = ["scripts"]     # 脚本目录不做 lint 检查
 
 [tool.ruff.format]
 line-ending = "lf" # 行尾符：lf（Unix）| crlf（Windows）| auto | native
