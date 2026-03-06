@@ -60,10 +60,6 @@ jobs:
     permissions:
       id-token: write
       contents: read
-    concurrency:
-      # group: test-coverage-${{ github.ref }}-${{ matrix.python-version }}-${{ matrix.os }}
-      group: coverage-${{ github.ref }}-${{ matrix.python-version }}
-      cancel-in-progress: true
 
     strategy:
       fail-fast: false
@@ -97,7 +93,7 @@ jobs:
       #   run: uv run playwright install --with-deps chromium
 
       - name: Run Pytest
-        run: uv run pytest --cov=src --cov-report xml --junitxml=./junit.xml -n auto
+        run: uv run pytest --cov=src --cov-report xml --junitxml=./junit.xml
 
       - name: Upload test results to Codecov
         if: ${{ !cancelled() }}
