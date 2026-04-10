@@ -54,6 +54,7 @@ build-backend = "uv_build"
 name = "cz_conventional_commits"
 version = "0.1.0"                           # 当前版本
 tag_format = "v$version"
+annotated_tag = true
 version_files = ["pyproject.toml:^version"]
 major_version_zero = true                   # 允许 0.x.x 版本号
 
