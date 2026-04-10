@@ -261,25 +261,18 @@ uv run ruff format .
 
 ```toml
 [tool.pyright]
-include = ["src", "tests"]
+include = ["src"]
 pythonVersion = "3.11"
 pythonPlatform = "All"
 typeCheckingMode = "standard"
 ```
 
-#### 测试目录特殊配置
-
-```toml
-[[tool.pyright.executionEnvironments]]
-root = "tests"
-reportPrivateUsage = "none"      # 允许测试访问私有属性
-reportUnknownMemberType = "none" # 允许 Mock 对象等动态类型
-```
+默认只对 `src/` 做类型检查，`tests/` 继续交给 `pytest` 和 `ruff` 兜底，这样更适合作为开箱即用的模板默认值。
 
 #### 使用方式
 
 ```bash
-just check    # 或 uv run basedpyright
+just check    # 或 uv run basedpyright（默认仅检查 src）
 ```
 
 ---
@@ -443,7 +436,7 @@ uv run git-cliff --latest   # 仅最新版本
 
 ```yaml
 - uv sync                 # 安装依赖
-- uvx basedpyright        # 类型检查
+- uv run basedpyright     # 类型检查（默认仅检查 src）
 ```
 
 #### Coverage Job
