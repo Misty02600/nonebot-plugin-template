@@ -1,0 +1,26 @@
+[project]
+name = "nonebot-plugin-template"
+version = "0.1.0"
+description = "Copier template controller for NoneBot plugins"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+dependencies = []
+
+[dependency-groups]
+dev = [
+  "basedpyright>=1.39.0,<2.0.0",
+  "copier>=9.17.0,<10.0.0",
+  "pytest>=9.0.0,<10.0.0",
+  "ruff>=0.15.0,<1.0.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+addopts = ["--import-mode=importlib", "--strict-markers", "--tb=short", "-ra"]
+markers = [
+  "integration: executes Copier, Git, Just, or generated-project toolchains",
+]
+testpaths = ["tests"]

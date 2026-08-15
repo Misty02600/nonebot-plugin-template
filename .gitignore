@@ -1,0 +1,9 @@
+.venv/
+_generated/
+
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+
+docs/scratch/*
+!docs/scratch/README.md

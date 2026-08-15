@@ -1,0 +1,179 @@
+name: Template CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  controller:
+    name: Controller checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v9.0.0
+        with:
+          enable-cache: true
+          python-version: "3.11"
+          version: "0.11.29"
+
+      - name: Install controller dependencies
+        run: uv sync --all-groups --locked
+
+      - name: Ruff
+        run: |
+          uv run --no-sync ruff check --output-format=github .
+          uv run --no-sync ruff format --check .
+
+      - name: BasedPyright
+        run: uv run --no-sync basedpyright
+
+      - name: Contract tests
+        run: uv run --no-sync pytest
+
+  ruff:
+    name: Ruff
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v9.0.0
+        with:
+          enable-cache: true
+          python-version: "3.11"
+          version: "0.11.29"
+
+      - name: Render Copier template
+        run: |
+          uvx --from 'copier>=9.17,<10' copier copy \
+            --vcs-ref HEAD \
+            --defaults \
+            --data repo_owner=Misty02600 \
+            --data repo_name=nonebot-plugin-example \
+            --data module_name=nonebot_plugin_example \
+            . _generated
+
+      - name: Verify generated structure
+        run: |
+          test -f _generated/.copier-answers.yml
+          test -d _generated/src/nonebot_plugin_example
+          test ! -e _generated/docs
+          test ! -e _generated/template
+          test ! -e _generated/copier.yml
+          if grep -q '^description[[:space:]]*=' _generated/pyproject.toml; then
+            exit 1
+          fi
+          test ! -e _generated/.github/workflows/nb-plugin-ci.yml
+          test ! -e _generated/.github/workflows/initialize.yml
+          if grep -q \
+            'Misty02600/nonebot-plugin-template/.github/workflows/nb-plugin-ci.yml' \
+            _generated/.github/workflows/ci.yml; then
+            exit 1
+          fi
+          grep -Fx 'set minimum-version := "1.56.0"' _generated/justfile
+          grep -Fx '[windows]' _generated/justfile
+          grep -Fx 'set shell := ["pwsh", "-NoProfile", "-Command"]' _generated/justfile
+          grep -Fx 'set default-list' _generated/justfile
+          if grep -q 'windows-shell' _generated/justfile; then
+            exit 1
+          fi
+
+      - name: Install dependencies
+        working-directory: _generated
+        run: uv sync --only-group lint
+
+      - name: Ruff check
+        working-directory: _generated
+        run: uv run --no-sync ruff check --output-format=github .
+
+      - name: Ruff format check
+        working-directory: _generated
+        run: uv run --no-sync ruff format --check .
+
+  basedpyright:
+    name: BasedPyright
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v9.0.0
+        with:
+          enable-cache: true
+          python-version: "3.11"
+          version: "0.11.29"
+
+      - name: Render Copier template
+        run: |
+          uvx --from 'copier>=9.17,<10' copier copy \
+            --vcs-ref HEAD \
+            --defaults \
+            --data repo_owner=Misty02600 \
+            --data repo_name=nonebot-plugin-example \
+            --data module_name=nonebot_plugin_example \
+            . _generated
+
+      - name: Install dependencies
+        working-directory: _generated
+        run: uv sync --no-dev --group type
+
+      - name: Static typing check
+        working-directory: _generated
+        run: uv run --no-sync basedpyright
+
+  test:
+    name: Test (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
+
+    env:
+      UV_NO_SYNC: 1
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v9.0.0
+        with:
+          enable-cache: true
+          python-version: ${{ matrix.python-version }}
+          version: "0.11.29"
+
+      - name: Render Copier template
+        run: |
+          uvx --from 'copier>=9.17,<10' copier copy \
+            --vcs-ref HEAD \
+            --defaults \
+            --data repo_owner=Misty02600 \
+            --data repo_name=nonebot-plugin-example \
+            --data module_name=nonebot_plugin_example \
+            . _generated
+
+      - name: Install dependencies
+        working-directory: _generated
+        run: uv sync --no-dev --group test
+
+      - name: Run pytest
+        working-directory: _generated
+        run: uv run --no-sync pytest
