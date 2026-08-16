@@ -52,7 +52,7 @@ uv sync --all-groups --locked
 | `just lock` | 更新控制仓库的 `uv.lock` |
 | `just bump` | 创建版本提交和 annotated tag，并原子推送到 `origin` |
 
-发布新模板版本前应确保 `main` 上的完整测试和 CI 已通过。`just bump` 经确认后会立即推送提交和 tag。
+发布新模板版本前应确保 `main` 上的完整测试和 CI 已通过。`just bump` 会立即推送提交和 tag。
 
 ## 更新生成项目
 

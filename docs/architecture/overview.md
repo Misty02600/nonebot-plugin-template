@@ -51,7 +51,7 @@ Renovate 例行维护 Action 版本，插件维护者也可以按项目需要独
 
 创建入口只保护模板来源、目标已存在等会改变更新身份或覆盖已有目录的边界。入口不重复实现平台与 Python 命名规则；Copier 统一验证 GitHub owner、1 到 100 字符的仓库名、Python 模块名、作者名和邮箱，并排除关键字及 Python 3.11–3.14 标准库顶层模块。可见性等平台参数由 `gh` 验证，失败时允许保留本地目录或仓库供调用者检查、修正或清理。创建入口和 Copier 问答都不收集项目简介，生成项目的包元数据与 GitHub 仓库描述由插件维护者后续补充。Jinja 中进入 TOML 或 Python 字面量的问答值按数据序列化，不作为源码片段拼接。
 
-根 `.cz.toml` 使用 Commitizen 自身的 version provider 保存当前模板版本。维护者在 `main` 上运行 `just bump`，经确认后通过 `uvx` 临时运行 Commitizen，创建版本提交和 PEP 440 兼容的 annotated tag，再使用 `git push --atomic --follow-tags origin HEAD` 整体推送当前提交与可达 annotated tags。根仓库不发布 Python 包；远端 tag 就是 Copier 可发现的模板版本。插件仓库中的 `.copier-answers.yml` 记录来源、版本和生成参数；该文件由 Copier 管理，不应手工编辑。
+根 `.cz.toml` 使用 Commitizen 自身的 version provider 保存当前模板版本。维护者在 `main` 上运行 `just bump`，随后通过 `uvx` 临时运行 Commitizen，创建版本提交和 PEP 440 兼容的 annotated tag，再使用 `git push --atomic --follow-tags origin HEAD` 整体推送当前提交与可达 annotated tags。根仓库不发布 Python 包；远端 tag 就是 Copier 可发现的模板版本。插件仓库中的 `.copier-answers.yml` 记录来源、版本和生成参数；该文件由 Copier 管理，不应手工编辑。
 
 Hosted Renovate 是插件采用模板升级的主要入口。生成项目同时提供 `update-template` 和可独立重跑的 `finish-template-update`，用于本地复现、解决 `.rej` 冲突或接管 Renovate PR；收尾阶段统一检查 diff、lock、hooks 和全部质量命令。
 
@@ -67,7 +67,7 @@ PyPI 配置匹配的 Trusted Publisher，发布 job 会明确失败，依赖它�
 维护者完成配置后重跑失败的 workflow 即可，不需要重新创建版本提交或 tag。这个可恢复的首次配置失败
 是有意接受的维护边界。
 
-插件维护者在已通过 CI 的 `main` 上运行单步 `just bump`。确认后，Commitizen 创建版本提交和 annotated
+插件维护者在已通过 CI 的 `main` 上运行单步 `just bump`。Commitizen 创建版本提交和 annotated
 tag，recipe 使用 `git push --atomic --follow-tags origin HEAD` 将当前提交及其可达的 annotated tags
 整体推送并触发远端 release workflow。该入口有意接受 `--follow-tags` 可能携带其他本地 annotated tags
 的范围，以保持无需中间检查或动态 tag 查询的单步流程。

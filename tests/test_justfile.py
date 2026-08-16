@@ -27,10 +27,7 @@ def test_root_justfile_exposes_the_controller_quality_commands() -> None:
     assert "uv run ruff format --check ." in justfile
     assert "uv run basedpyright" in justfile
     assert "uv lock" in justfile
-    assert (
-        '[confirm("确认在 main 上创建模板版本提交和 annotated tag，'
-        '并整体原子推送到 origin？")]' in justfile
-    )
+    assert "[confirm(" not in justfile
     assert 'shell("git branch --show-current") == "main"' in justfile
     assert 'error("bump 只能在 main 分支执行")' in justfile
     assert "git push --atomic --follow-tags origin HEAD" in justfile
@@ -94,10 +91,7 @@ def test_generated_bump_pushes_the_whole_release_from_main() -> None:
     changelog_start = justfile.index("# 生成 changelog")
     bump_recipe = justfile[bump_start:changelog_start]
 
-    assert (
-        '[confirm("确认在 main 上创建版本提交和 annotated tag，并整体原子推送到 origin？")]'
-        in justfile
-    )
+    assert "[confirm(" not in justfile
     assert 'shell("git branch --show-current") == "main"' in bump_recipe
     assert 'error("bump 只能在 main 分支执行")' in bump_recipe
     assert "uv run cz bump --yes" in bump_recipe

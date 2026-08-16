@@ -12,7 +12,7 @@
 
 - 根目录新增 `.cz.toml`，使用 Commitizen 自身的 version provider 保存模板版本；不为了发布模板恢复根 Python 项目。
 - 版本遵循 PEP 440，tag 使用 `v$version`，并创建 annotated tag。
-- 根 `justfile` 提供带确认的 `just bump`；该命令只允许在 `main` 运行。
+- 根 `justfile` 提供不带额外确认的 `just bump`；该命令只允许在 `main` 运行。
 - Commitizen 通过 `uvx --from 'commitizen>=4.16,<5'` 临时执行，不写入根依赖或 lock。
 - bump 成功后，命令只把当前 `HEAD` 和本次精确 tag 通过 `git push --atomic` 推送到 `origin`。
 - 根模板发布不执行 PyPI 发布，也不在 bump 内重复本仓库 CI；维护者在调用前确认 `main` 已通过检查。

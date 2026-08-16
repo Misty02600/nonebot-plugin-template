@@ -10,7 +10,6 @@ set lazy
 uv := require("uv")
 
 # 在 main 上创建模板版本提交和 annotated tag，并整体原子推送到 origin
-[confirm("确认在 main 上创建模板版本提交和 annotated tag，并整体原子推送到 origin？")]
 [group("release")]
 bump:
     {{ if shell("git branch --show-current") == "main" { "" } else { error("bump 只能在 main 分支执行") } }}uvx --from 'commitizen>=4.16,<5' cz bump --yes

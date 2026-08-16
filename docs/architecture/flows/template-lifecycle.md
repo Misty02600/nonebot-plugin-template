@@ -40,7 +40,7 @@
 ### 发布模板
 
 1. 模板变更通过根控制项目的 Ruff、BasedPyright、pytest 契约测试，以及生成插件的 Ruff、BasedPyright 和 Python 版本矩阵验证后合并到 `main`。
-2. 维护者运行 `just bump`，确认发布意图；该入口只允许在 `main` 执行。
+2. 维护者运行 `just bump`；该入口不显示额外确认提示，并且只允许在 `main` 执行。
 3. Commitizen 更新根 `.cz.toml` 中的版本，创建版本提交和 `vX.Y.Z` annotated tag。
 4. `git push --atomic --follow-tags origin HEAD` 同时推送当前 `HEAD` 与可达的 annotated tags；远端版本 tag 随即成为 Copier 可选择的模板版本。
 
