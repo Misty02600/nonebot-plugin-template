@@ -44,7 +44,7 @@ def test_controller_ci_checks_both_controller_and_generated_project() -> None:
     assert "uv run --no-sync pytest" in controller_job
     assert "uv sync --only-group lint" in ruff_job
     assert "uv run --no-sync ruff check" in ruff_job
-    assert "uv sync --no-dev --group type" in basedpyright_job
+    assert "uv sync --no-dev --group type --all-extras" in basedpyright_job
     assert "uv run --no-sync basedpyright" in basedpyright_job
     assert "uv sync --no-dev --group test" in test_job
     assert "uv run --no-sync pytest" in test_job
@@ -66,6 +66,7 @@ def test_generated_release_stages_validated_artifacts_across_minimal_permissions
     assert workflow.count("contents: write") == 1
     assert 'git cat-file -t "refs/tags/$GITHUB_REF_NAME"' in workflow
     assert 'git merge-base --is-ancestor "$GITHUB_SHA" "origin/main"' in workflow
+    assert "uv sync --all-groups --all-extras" in workflow
     assert "uv run --no-sync ruff check" in workflow
     assert "uv run --no-sync basedpyright" in workflow
     assert "uv run --no-sync pytest" in workflow

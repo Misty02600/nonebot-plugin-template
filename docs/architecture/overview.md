@@ -55,7 +55,11 @@ Renovate 例行维护 Action 版本，插件维护者也可以按项目需要独
 
 Hosted Renovate 是插件采用模板升级的主要入口。生成项目同时提供 `update-template` 和可独立重跑的 `finish-template-update`，用于本地复现、解决 `.rej` 冲突或接管 Renovate PR；收尾阶段统一检查 diff、lock、hooks 和全部质量命令。
 
-根 CI 检查控制项目，并真实渲染默认插件后运行 Ruff、BasedPyright 和 Python 版本矩阵；契约测试保护所有 pull request 都触发生成 CI，以及 release workflow 的最小权限和 artifact 顺序。生成 CI 会取消同一 PR 中已被新提交取代的旧运行，但保留不同 PR 与每次 `main` push 的完整检查。根 CI 不再维护 actionlint、zizmor 或 workflow manifest 扫描链。GitHub 官方 Actions 使用可读 major tag，setup-uv Action 使用精确 semver tag，workflow 的 `version` 输入也固定精确 uv CLI 版本；根 Renovate 维护控制依赖和模板 seed 中的 Action 引用，生成后的 active workflow 由插件仓库自己的 Renovate 独立维护。两条更新链维护不同仓库中的 seed 与 active 副本，Copier 更新时按三方合并处理重叠变化。根仓库和生成插件中获准自动合并的 Renovate PR 统一使用 rebase，不产生额外 merge commit；uv patch 更新可以在门禁通过后自动合并，minor/major 更新仍需人工审查。
+根 CI 检查控制项目，并真实渲染默认插件后运行 Ruff、BasedPyright 和 Python 版本矩阵；契约测试保护所有 pull request 都触发生成 CI，以及 release workflow 的最小权限和 artifact 顺序。BasedPyright 仍只检查 `src`，其生成 CI job 和根 CI 的渲染项目 job 会同时安装 `type` group 与全部 extras，使源码中的可选依赖导入在完整环境中解析。生成插件的 release 验证、本地 `just sync` 与 `just finish-template-update` 则安装全部 groups 和全部 extras；这一默认策略只覆盖可共同安装的 extras，定义互斥 extras 的叶子项目必须显式选择自己的兼容组合。
+
+生成 CI 会取消同一 PR 中已被新提交取代的旧运行，但保留不同 PR 与每次 `main` push 的完整检查。根 CI 不再维护 actionlint、zizmor 或 workflow manifest 扫描链。
+
+GitHub 官方 Actions 使用可读 major tag，setup-uv Action 使用精确 semver tag，workflow 的 `version` 输入也固定精确 uv CLI 版本；根 Renovate 维护控制依赖和模板 seed 中的 Action 引用，生成后的 active workflow 由插件仓库自己的 Renovate 独立维护。两条更新链维护不同仓库中的 seed 与 active 副本，Copier 更新时按三方合并处理重叠变化。根仓库和生成插件中获准自动合并的 Renovate PR 统一使用 rebase，不产生额外 merge commit；uv patch 更新可以在门禁通过后自动合并，minor/major 更新仍需人工审查。
 
 插件 release workflow 在无发布权限的 `validate` job 中确认版本、annotated tag 与 `main` 祖先关系，
 重跑 Ruff、BasedPyright 和 pytest，构建一个 wheel 与一个 sdist，并检查归档数量、完整性和安全路径。通过后，reviewed artifact
@@ -115,6 +119,7 @@ tag，recipe 使用 `git push --atomic --follow-tags origin HEAD` 将当前提�
 - [ADR-0020: 只在 GitHub workflows 固定 uv CLI 版本](../adr/0020-pin-uv-only-in-github-workflows.md)
 - [ADR-0021: 分别维护 workflow 模板 seed 与 active 副本](../adr/0021-maintain-workflow-seeds-and-active-copies-separately.md)
 - [ADR-0022: 不使用 Twine 重复检查发行包元数据](../adr/0022-validate-distributions-without-twine.md)
+- [ADR-0023: 类型检查与全量验证安装所有可共同安装的 extras](../adr/0023-install-compatible-extras-for-type-and-full-validation.md)
 
 ## 已知风险或不清楚区域
 

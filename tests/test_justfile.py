@@ -43,10 +43,18 @@ def test_creation_recipe_does_not_collect_a_project_description() -> None:
     assert 'commit -m "chore: initialize repository"' in justfile
 
 
+def test_generated_sync_installs_development_and_optional_dependencies() -> None:
+    justfile = (REPOSITORY_ROOT / "template/justfile").read_text(encoding="utf-8")
+    sync_start = justfile.index("sync:")
+    run_start = justfile.index("\nrun:\n")
+    sync_recipe = justfile[sync_start:run_start]
+
+    assert "uv sync --all-groups --all-extras" in sync_recipe
+
+
 def test_generated_run_recipe_uses_the_synced_nonebot_cli() -> None:
     justfile = (REPOSITORY_ROOT / "template/justfile").read_text(encoding="utf-8")
 
-    assert "uv sync --all-groups" in justfile
     assert "uv run nb run --reload" in justfile
 
 
@@ -69,7 +77,7 @@ def test_generated_justfile_has_resumable_template_updates() -> None:
         "git diff --cached --check",
         "'*.rej'",
         "uv lock",
-        "uv sync --locked --all-groups",
+        "uv sync --locked --all-groups --all-extras",
         "uv run --no-sync prek run --all-files",
         "uv run --no-sync ruff check .",
         "uv run --no-sync ruff format --check .",

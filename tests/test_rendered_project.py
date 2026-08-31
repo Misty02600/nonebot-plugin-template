@@ -86,7 +86,7 @@ def test_default_template_renders_a_nonebot_plugin(
 
     workflow = (destination / ".github/workflows/ci.yml").read_text(encoding="utf-8")
     assert workflow.count("uv sync --only-group lint") == 1
-    assert workflow.count("uv sync --no-dev --group type") == 1
+    assert workflow.count("uv sync --no-dev --group type --all-extras") == 1
     assert workflow.count("uv sync --no-dev --group test") == 1
     pull_request_trigger = workflow.split("  pull_request:\n", 1)[1].split(
         "\npermissions:\n", 1
@@ -101,6 +101,7 @@ def test_default_template_renders_a_nonebot_plugin(
     ) in workflow
 
     readme = (destination / "README.md").read_text(encoding="utf-8")
+    assert "`just sync`：同步全部开发依赖组和所有可共同安装的 extras。" in readme
     assert "just bump" in readme
     assert "just push-release" not in readme
 
@@ -119,7 +120,7 @@ def test_synced_project_exposes_cli_and_imports_installed_package(
     render_default(template_snapshot, destination)
 
     sync = subprocess.run(
-        ("uv", "sync", "--all-groups"),
+        ("uv", "sync", "--all-groups", "--all-extras"),
         cwd=destination,
         check=False,
         text=True,

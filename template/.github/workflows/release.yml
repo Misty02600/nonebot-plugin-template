@@ -38,7 +38,7 @@ jobs:
           git merge-base --is-ancestor "$GITHUB_SHA" "origin/main"
 
       - name: Install validation dependencies
-        run: uv sync --all-groups
+        run: uv sync --all-groups --all-extras
 
       - name: Ruff
         run: |

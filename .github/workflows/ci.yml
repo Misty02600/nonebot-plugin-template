@@ -131,7 +131,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: _generated
-        run: uv sync --no-dev --group type
+        run: uv sync --no-dev --group type --all-extras
 
       - name: Static typing check
         working-directory: _generated

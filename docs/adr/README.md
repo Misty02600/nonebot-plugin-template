@@ -22,6 +22,7 @@
 - [ADR-0020：只在 GitHub workflows 固定 uv CLI 版本](0020-pin-uv-only-in-github-workflows.md)
 - [ADR-0021：分别维护 workflow 模板 seed 与 active 副本](0021-maintain-workflow-seeds-and-active-copies-separately.md)
 - [ADR-0022：不使用 Twine 重复检查发行包元数据](0022-validate-distributions-without-twine.md)
+- [ADR-0023：类型检查与全量验证安装所有可共同安装的 extras](0023-install-compatible-extras-for-type-and-full-validation.md)
 
 ## 已替代
 
